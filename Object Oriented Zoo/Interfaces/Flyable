@@ -1,6 +1,0 @@
-package Interfaces;
-
-// Used in Bird class
-interface Flyable {
-    void fly();
-}
