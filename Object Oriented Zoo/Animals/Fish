@@ -1,0 +1,21 @@
+// Subclass 2: Fish
+class Fish extends Animal implements Swimmable {
+    public Fish(String name) {
+        super(name);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + "makes a Blub blub sound.");
+    }
+
+    @Override
+    public void move() {
+        System.out.println(name + " can swim.");
+    }
+
+    @Override
+    public void swim() {
+        System.out.println(getName() + " swims swiftly.");
+    }
+}

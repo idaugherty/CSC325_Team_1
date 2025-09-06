@@ -1,0 +1,20 @@
+// Main
+public class Main {
+    public static void main(String[] args) {
+        Bird bird = new Bird("Goose");
+        Fish fish = new Fish("Goldfish");
+        Mammal mammal = new Mammal("Tiger");
+
+        bird.makeSound();
+        bird.move();
+        bird.fly();
+        bird.swim();
+
+        fish.makeSound();
+        fish.move();
+        fish.swim();
+
+        mammal.makeSound();
+        mammal.move();
+    }
+}

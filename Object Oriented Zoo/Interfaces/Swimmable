@@ -1,0 +1,6 @@
+package Interfaces;
+
+// Used in Bird and Fish classes
+interface Swimmable {
+    void swim();
+}
