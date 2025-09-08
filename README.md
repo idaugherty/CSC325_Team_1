@@ -22,6 +22,10 @@ This project contains Java implementations of various geometric shapes using abs
    java Main
    ```
 
+
+## Why This Comparison Matters in Real-World Design
+Understanding the differences between interfaces and abstract classes is crucial for building flexible, maintainable, and scalable software. Abstract classes allow you to define shared base functionality and state, while interfaces enable you to specify contracts that multiple classes can implement, regardless of their inheritance hierarchy. This comparison helps developers choose the right approach for code reuse, extensibility, and enforcing consistent behavior across diverse components. In real-world projects, making the right choice leads to cleaner architecture, easier testing, and better collaboration within teams.
+
 ## Features
 - Calculate area for each shape.
 - Draw and describe shapes using interface methods.
