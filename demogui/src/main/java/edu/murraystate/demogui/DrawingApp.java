@@ -1,3 +1,18 @@
+/**
+ * DrawingApp.java
+ *
+ * Entry point for the Drawing Application.
+ * <p>
+ * This class launches the JavaFX application, creates a {@link DrawingController},
+ * and displays the main window where users can draw shapes, view shape information,
+ * and interact with controls.
+ * </p>
+ *
+ * @author Bella Daugherty
+ * @version 1.0
+ * @since 2025-09-19
+ */
+
 package edu.murraystate.demogui;
 
 import javafx.application.Application;

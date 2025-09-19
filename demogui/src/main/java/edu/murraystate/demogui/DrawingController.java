@@ -1,3 +1,27 @@
+/**
+ * DrawingController.java
+ *
+ * Controller class responsible for managing the drawing logic and UI layout.
+ * <p>
+ * Provides event handling for mouse clicks, keyboard shortcuts, and button actions.
+ * Keeps track of drawn shapes in an {@link javafx.collections.ObservableList},
+ * and updates labels, tooltips, and a {@link javafx.scene.control.ListView}
+ * with shape information in real time.
+ * </p>
+ *
+ * Features:
+ * <ul>
+ *   <li>Draw circles and rectangles on a {@link javafx.scene.canvas.Canvas}</li>
+ *   <li>Display shape count and total area</li>
+ *   <li>Clear canvas and manage shape list</li>
+ *   <li>Keyboard shortcuts for common actions</li>
+ * </ul>
+ *
+ * @author Bella Daugherty
+ * @version 1.0
+ * @since 2025-09-19
+ */
+
 package edu.murraystate.demogui;
 
 import javafx.beans.binding.Bindings;
@@ -53,14 +77,15 @@ public class DrawingController {
         canvasTooltip = new Tooltip("No selection");
         Tooltip.install(canvas, canvasTooltip);
 
-    setupControls();
-    setupInfoPanel();
-    setupCanvasClick();
-    redrawCanvas();
+        setupControls();
+        setupInfoPanel();
+        setupCanvasClick();
+        redrawCanvas();
     }
 
     /**
-     * Constructor used by DrawingApp when it creates its own Canvas/GraphicsContext.
+     * Constructor used by DrawingApp when it creates its own
+     * Canvas/GraphicsContext.
      */
     public DrawingController(GraphicsContext gc, Canvas canvas, BorderPane root, ObservableList<DrawableShape> shapes) {
         this.graphicsContext = gc;
@@ -76,10 +101,10 @@ public class DrawingController {
         canvasTooltip = new Tooltip("No selection");
         Tooltip.install(canvas, canvasTooltip);
 
-    setupControls();
-    setupInfoPanel();
-    setupCanvasClick();
-    redrawCanvas();
+        setupControls();
+        setupInfoPanel();
+        setupCanvasClick();
+        redrawCanvas();
     }
 
     public void setupControls() {
@@ -95,8 +120,8 @@ public class DrawingController {
         Button clearButton = new Button("Clear");
         clearButton.setOnAction(e -> clearCanvas());
 
-    // ColorPicker (optional, small UX improvement)
-    this.colorPicker = new ColorPicker(Color.CORNFLOWERBLUE);
+        // ColorPicker (optional, small UX improvement)
+        this.colorPicker = new ColorPicker(Color.CORNFLOWERBLUE);
 
         // Layout top controls
         HBox controls = new HBox(10, circleButton, rectangleButton, new Label("Color:"), colorPicker, clearButton);
@@ -108,6 +133,22 @@ public class DrawingController {
 
         root.setTop(controls);
         root.setCenter(canvas);
+
+        root.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case C -> {
+                    if (event.isShiftDown()) {
+                        // Shift+C = Clear canvas
+                        clearCanvas();
+                    } else {
+                        // C = Circle
+                        shapeToggleGroup.selectToggle(circleButton);
+                    }
+                }
+                case R -> shapeToggleGroup.selectToggle(rectangleButton);
+                case O -> shapeToggleGroup.selectToggle(circleButton);
+            }
+        });
     }
 
     private void setupInfoPanel() {
@@ -118,9 +159,9 @@ public class DrawingController {
 
         // Create a DoubleBinding for total area and bind totalAreaLabel to it
         // (formatted)
-    DoubleBinding totalAreaBinding = Bindings.createDoubleBinding(
-        () -> Double.valueOf(shapes.stream().mapToDouble(DrawableShape::getArea).sum()),
-        shapes);
+        DoubleBinding totalAreaBinding = Bindings.createDoubleBinding(
+                () -> Double.valueOf(shapes.stream().mapToDouble(DrawableShape::getArea).sum()),
+                shapes);
 
         totalAreaLabel.textProperty().bind(Bindings.format("Total area: %.2f", totalAreaBinding));
 
@@ -168,14 +209,14 @@ public class DrawingController {
             }
         });
 
-    // Right-side VBox for info
-    VBox infoBox = new VBox(8,
-        countLabel,
-        totalAreaLabel,
-        new HBox(8, showLabelsCheckBox, showCircleLabelsCheckBox, showRectangleLabelsCheckBox),
-        circleAreaLabel,
-        rectangleAreaLabel,
-        new Label("Shapes:"), listView, selectedLabel);
+        // Right-side VBox for info
+        VBox infoBox = new VBox(8,
+                countLabel,
+                totalAreaLabel,
+                new HBox(8, showLabelsCheckBox, showCircleLabelsCheckBox, showRectangleLabelsCheckBox),
+                circleAreaLabel,
+                rectangleAreaLabel,
+                new Label("Shapes:"), listView, selectedLabel);
         infoBox.setPadding(new Insets(8));
         infoBox.setPrefWidth(300);
         VBox.setVgrow(listView, Priority.ALWAYS);
@@ -183,9 +224,9 @@ public class DrawingController {
         root.setRight(infoBox);
     }
 
-
     /**
-     * Redraws canvas and draws a small label for each shape showing description and area.
+     * Redraws canvas and draws a small label for each shape showing description and
+     * area.
      */
     private void redrawCanvas() {
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -239,11 +280,13 @@ public class DrawingController {
 
         if (circleAreaLabel != null) {
             String desc = getDescriptionsForCircles(5);
-            circleAreaLabel.setText(String.format("Circles total area: %.2f%s", circleArea, desc.isEmpty() ? "" : " — " + desc));
+            circleAreaLabel.setText(
+                    String.format("Circles total area: %.2f%s", circleArea, desc.isEmpty() ? "" : " — " + desc));
         }
         if (rectangleAreaLabel != null) {
             String desc = getDescriptionsForRectangles(5);
-            rectangleAreaLabel.setText(String.format("Rectangles total area: %.2f%s", rectArea, desc.isEmpty() ? "" : " — " + desc));
+            rectangleAreaLabel.setText(
+                    String.format("Rectangles total area: %.2f%s", rectArea, desc.isEmpty() ? "" : " — " + desc));
         }
     }
 
@@ -270,7 +313,8 @@ public class DrawingController {
     }
 
     /**
-     * Set up canvas click handling (separated so DrawingApp can supply its own canvas)
+     * Set up canvas click handling (separated so DrawingApp can supply its own
+     * canvas)
      */
     private void setupCanvasClick() {
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -300,8 +344,8 @@ public class DrawingController {
      * Convenience method to initialize the controller after construction.
      */
     public void initialize() {
-    setupControls();
-    redrawCanvas();
+        setupControls();
+        redrawCanvas();
     }
 
     public BorderPane getRoot() {

@@ -1,3 +1,20 @@
+/**
+ * RectangleShape.java
+ *
+ * A drawable rectangle implementation of {@link DrawableShape}.
+ * <p>
+ * Encapsulates the rectangle's position, width, height, and color,
+ * and provides methods for drawing, description, and area calculation.
+ * </p>
+ *
+ * Drawn on a {@link javafx.scene.canvas.Canvas} via its
+ * {@link javafx.scene.canvas.GraphicsContext}.
+ *
+ * @author Bella Daugherty
+ * @version 1.0
+ * @since 2025-09-19
+ */
+
 package edu.murraystate.demogui;
 
 import javafx.scene.canvas.GraphicsContext;
