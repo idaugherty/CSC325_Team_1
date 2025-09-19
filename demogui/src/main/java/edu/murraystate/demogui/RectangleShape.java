@@ -25,4 +25,31 @@ public class RectangleShape implements DrawableShape {
         graphicsContext.fillRect(x - width / 2, y - height / 2, width, height);
     }
 
+    @Override
+    public double getArea() {
+        return width * height;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format("Rectangle (x=%.1f y=%.1f w=%.1f h=%.1f area=%.2f)",
+                x, y, width, height, getArea());
+    }
+
+    @Override
+    public double getX() {
+        return x;
+    }
+
+    @Override
+    public double getY() {
+        return y;
+    }
+
+    @Override
+    public boolean contains(double x, double y) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+    }
+
 }

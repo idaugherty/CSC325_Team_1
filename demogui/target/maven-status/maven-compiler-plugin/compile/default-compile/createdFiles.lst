@@ -2,4 +2,5 @@ edu\murraystate\demogui\CircleShape.class
 edu\murraystate\demogui\RectangleShape.class
 edu\murraystate\demogui\DrawingController.class
 edu\murraystate\demogui\DrawingApp.class
+edu\murraystate\demogui\DrawingController$1.class
 edu\murraystate\demogui\DrawableShape.class
