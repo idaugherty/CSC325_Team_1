@@ -1,25 +1,22 @@
 package org.openjfx;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
-public class CircleShape implements DrawableShape {
-    private final double centerX, centerY, radius;
+public class CircleShape extends DrawableShape {
+    private final double radius;
 
-    public CircleShape(double centerX, double centerY, double radius) {
-        this.centerX = centerX;
-        this.centerY = centerY;
+    public CircleShape(double x, double y, double radius) {
+        super(x, y);
         this.radius = radius;
     }
 
     @Override
     public void draw(GraphicsContext gc) {
-        double x = centerX - radius;
-        double y = centerY - radius;
-        gc.setFill(Color.PINK);
-        gc.fillOval(x, y, radius * 2, radius * 2);
-        gc.setStroke(Color.BLACK);
-        gc.strokeOval(x, y, radius * 2, radius * 2);
+        gc.strokeOval(x - radius, y - radius, radius * 2, radius * 2);
     }
 }
+
+
+
+
 

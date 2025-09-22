@@ -2,7 +2,20 @@ package org.openjfx;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public interface DrawableShape {
-    void draw(GraphicsContext gc);
+public abstract class DrawableShape {
+    protected double x;
+    protected double y;
+
+    public DrawableShape(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public abstract void draw(GraphicsContext gc);
 }
+
+
+
+
+
 

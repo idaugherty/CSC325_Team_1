@@ -1,24 +1,26 @@
 package org.openjfx;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
-public class RectangleShape implements DrawableShape {
-    private final double x, y, width, height;
+public class RectangleShape extends DrawableShape {
+    private final double width;
+    private final double height;
 
     public RectangleShape(double x, double y, double width, double height) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.width = width;
         this.height = height;
     }
 
     @Override
     public void draw(GraphicsContext gc) {
-        gc.setFill(Color.LIGHTBLUE);
-        gc.fillRect(x, y, width, height);
-        gc.setStroke(Color.BLACK);
-        gc.strokeRect(x, y, width, height);
+        // draw centered on the click point
+        double topLeftX = x - width / 2;
+        double topLeftY = y - height / 2;
+        gc.strokeRect(topLeftX, topLeftY, width, height);
     }
 }
+
+
+
 

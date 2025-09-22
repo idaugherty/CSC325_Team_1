@@ -8,43 +8,43 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
-        // Create canvas and controller
-        Canvas canvas = new Canvas(600, 400);
-        DrawingController controller = new DrawingController(canvas);
+        Canvas canvas = new Canvas(700, 500);
 
-        // Shape selection
+        ToggleGroup shapeGroup = new ToggleGroup();
         RadioButton rectBtn = new RadioButton("Rectangle");
+        rectBtn.setToggleGroup(shapeGroup);
+        rectBtn.setSelected(true);
         RadioButton circleBtn = new RadioButton("Circle");
-        ToggleGroup shapeToggle = new ToggleGroup();
-        rectBtn.setToggleGroup(shapeToggle);
-        circleBtn.setToggleGroup(shapeToggle);
-        rectBtn.setSelected(true);  // default
+        circleBtn.setToggleGroup(shapeGroup);
 
-        // Bind toggle to controller
-        shapeToggle.selectedToggleProperty().addListener((obs, old, newVal) -> {
-            if (newVal == rectBtn) controller.setCurrentShape("Rectangle");
-            else if (newVal == circleBtn) controller.setCurrentShape("Circle");
-        });
-
-        // Clear button
+        HBox controls = new HBox(10, rectBtn, circleBtn);
         Button clearBtn = new Button("Clear");
-        clearBtn.setOnAction(e -> controller.clearCanvas());
 
-        // Layout
-        HBox controls = new HBox(10, rectBtn, circleBtn, clearBtn);
-        controls.setStyle("-fx-padding: 10;");
+        VBox leftPanel = new VBox(12, controls, clearBtn);
+        leftPanel.setStyle("-fx-padding:10;");
 
         BorderPane root = new BorderPane();
-        root.setTop(controls);
+        root.setLeft(leftPanel);
         root.setCenter(canvas);
 
-        // Scene and stage
-        Scene scene = new Scene(root, 600, 450);
+        // <-- Use the single-Canvas constructor
+        DrawingController controller = new DrawingController(canvas);
+
+        canvas.setOnMouseClicked(e -> {
+            RadioButton selected = (RadioButton) shapeGroup.getSelectedToggle();
+            String shapeType = selected.getText();
+            controller.addShape(shapeType, e.getX(), e.getY());
+        });
+
+        clearBtn.setOnAction(e -> controller.clear());
+
+        Scene scene = new Scene(root, 900, 600);
         primaryStage.setTitle("Drawing App");
         primaryStage.setScene(scene);
         primaryStage.show();
