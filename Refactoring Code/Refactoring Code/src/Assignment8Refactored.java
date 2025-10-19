@@ -10,7 +10,7 @@ public class Assignment8Refactored {
 
     // --- Simple domain model ---
 
-    static class Course {
+    public static class Course {
         private final String code;     // e.g., "CSC-101"
         private final String title;    // e.g., "Intro to CS"
 
@@ -28,7 +28,7 @@ public class Assignment8Refactored {
         }
     }
 
-    static class Student {
+    public static class Student {
         private final String id;
         private final String firstName;
         private final String lastName;
